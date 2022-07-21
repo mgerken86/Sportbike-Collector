@@ -3,13 +3,13 @@
 
 <h1>Sportbikes List</h1>
 
-{% for bike in sportbikes %}
+{% for sportbike in sportbikes %}
   <div class="card">
-    <a href="{% url 'detail' bike.id %}">
+    <a href="{% url 'detail' sportbike.id %}">
     <div class="card-content">
-      <span class="card-title">{{ bike.make }} {{ bike.name }}</span>
-      <p>Displacement: {{ bike.displacement }}</p>
-      <p>Skill Level: {{ bike.skill_lvl }}</p>
+      <span class="card-title">{{ sportbike.make }} {{ sportbike.name }}</span>
+      <p>Displacement: {{ sportbike.displacement }}</p>
+      <p>Skill Level: {{ sportbike.skill_lvl }}</p>
     </div>
 </a>
   </div>

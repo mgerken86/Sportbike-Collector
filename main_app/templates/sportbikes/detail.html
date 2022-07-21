@@ -9,6 +9,15 @@
     <p>Displacement: {{ sportbike.displacement }}</p>
     <p>Skill Level: {{ sportbike.skill_lvl }}</p>
   </div>
+  <div class="card-action">
+    <a href="{% url 'sportbikes_update' sportbike.id %}">Edit</a>
+    <a href="{% url 'sportbikes_delete' sportbike.id %}">Delete</a>
+  </div>
 </div>
+{% for photo in sportbike.photo_set.all %}
+<img class="responsive-img card-panel" src="{{photo.url}}">
+{% empty %}
+<div class="card-panel teal-text center-align">No Photos Uploaded</div>
+{% endfor %}
 
 {% endblock %}
