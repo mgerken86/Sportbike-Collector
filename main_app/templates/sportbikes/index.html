@@ -5,11 +5,13 @@
 
 {% for bike in sportbikes %}
   <div class="card">
+    <a href="{% url 'detail' bike.id %}">
     <div class="card-content">
-      <span class="card-title">{{ bike.make }} {{ bike.model }}</span>
+      <span class="card-title">{{ bike.make }} {{ bike.name }}</span>
       <p>Displacement: {{ bike.displacement }}</p>
       <p>Skill Level: {{ bike.skill_lvl }}</p>
     </div>
+</a>
   </div>
 {% endfor %}
 

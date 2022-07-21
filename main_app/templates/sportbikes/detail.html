@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Sportbike Details</h1>
+
+<div class="card">
+  <div class="card-content">
+    <span class="card-title">{{ sportbike.make }} {{ sportbike.model }}</span>
+    <p>Displacement: {{ sportbike.displacement }}</p>
+    <p>Skill Level: {{ sportbike.skill_lvl }}</p>
+  </div>
+</div>
+
+{% endblock %}
