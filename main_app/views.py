@@ -3,6 +3,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 import uuid
 import boto3
 from .models import Sportbike, Photo
+from .forms import TrimForm
 import os
 
 
@@ -11,28 +12,37 @@ class SportbikeCreate(CreateView):
     fields = '__all__'
     success_url = '/sportbikes/'
 
+
 class SportbikeUpdate(UpdateView):
-  model = Sportbike
-  fields = ['displacement', 'skill_lvl']
+    model = Sportbike
+    fields = ['displacement', 'skill_lvl']
+
 
 class SportbikeDelete(DeleteView):
-  model = Sportbike
-  success_url = '/sportbikes/'
+    model = Sportbike
+    success_url = '/sportbikes/'
 
 
 def home(request):
-  return render(request, 'base.html')
+    return render(request, 'base.html')
+
 
 def about(request):
-    return render(request, 'about.html')    
+    return render(request, 'about.html')
+
 
 def sportbikes_index(request):
     sportbikes = Sportbike.objects.all()
     return render(request, 'sportbikes/index.html', {'sportbikes': sportbikes})
 
+
 def sportbikes_detail(request, sportbike_id):
     bike = Sportbike.objects.get(id=sportbike_id)
-    return render(request, 'sportbikes/detail.html', {'sportbike': bike})
+    trim_form = TrimForm()
+    return render(request, 'sportbikes/detail.html', {
+        'sportbike': bike, 'trim_form': trim_form
+    })
+
 
 def add_photo(request, sportbike_id):
     # photo-file will be the "name" attribute on the <input type="file">
@@ -40,7 +50,8 @@ def add_photo(request, sportbike_id):
     if photo_file:
         s3 = boto3.client('s3')
         # need a unique "key" for S3 / needs image file extension too
-        key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
+        key = uuid.uuid4().hex[:6] + \
+            photo_file.name[photo_file.name.rfind('.'):]
         # just in case something goes wrong
         try:
             bucket = os.environ['S3_BUCKET']
