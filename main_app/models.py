@@ -1,6 +1,12 @@
 from django.db import models
 from django.urls import reverse
 
+NAMES = (
+    ('P', 'Premium'),
+    ('R', 'Race'),
+    ('S', 'Standard')
+)
+
 # Create your models here.
 class Sportbike(models.Model):
         make =  models.CharField(max_length=100, null=True)
@@ -9,10 +15,23 @@ class Sportbike(models.Model):
         skill_lvl = models.CharField(max_length=50, default='advanced' )
 
         def __str__(self):
-            return f"{self.make} {self.model}"
+            return f"{self.make} {self.name}"
 
         def get_absolute_url(self):
             return reverse('detail', kwargs={'sportbike_id': self.id})
+
+class Trim(models.Model):
+    name = models.CharField(
+        max_length=1,
+        choices=NAMES,
+        default=NAMES[2][0]
+    )
+    price_inc = models.IntegerField(default=0)
+
+    sportbike = models.ForeignKey(Sportbike, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.get_name_display()} for ${self.price_inc}"
 
 class Photo(models.Model):
     url = models.CharField(max_length=200)
