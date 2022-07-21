@@ -43,6 +43,15 @@ def sportbikes_detail(request, sportbike_id):
         'sportbike': bike, 'trim_form': trim_form
     })
 
+def add_trim(request, sportbike_id):
+  form = TrimForm(request.POST)
+  if form.is_valid():
+    new_trim = form.save(commit=False)
+    print(new_trim)
+    new_trim.sportbike_id = sportbike_id
+    new_trim.save()
+  return redirect('detail', sportbike_id=sportbike_id)
+
 
 def add_photo(request, sportbike_id):
     # photo-file will be the "name" attribute on the <input type="file">

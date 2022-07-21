@@ -19,7 +19,7 @@
   </div>
 </div>
 <div class="col s6">
-  <form method="POST">
+  <form action="{% url 'add_trim' sportbike.id %}" method="POST">
     {% csrf_token %}
     {{ trim_form.as_p }}
     <input type="submit" class="btn" value="Add Trim">

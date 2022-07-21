@@ -4,4 +4,4 @@ from .models import Trim
 class TrimForm(ModelForm):
     class Meta:
         model = Trim
-        fields = '__all__'
+        fields = ['name', 'price_inc']
