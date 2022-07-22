@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Color Scheme List</h1>
+
+{% for colors in colors_list %}
+  <a href="{% url 'colors_detail' colors.id %}">
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title">Color Scheme</span>
+            <p>Color: {{ colors.color1 }}</p>
+            <p>Color: {{ colors.color2 }}</p>
+        </div>
+    </div>
+  </a>
+{% endfor %}
+
+{% endblock %}

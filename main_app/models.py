@@ -8,17 +8,25 @@ NAMES = (
 )
 
 # Create your models here.
+class Colors(models.Model):
+    color1 =[ models.CharField(max_length=50)]
+    color2 =[ models.CharField(max_length=50)]
+
+    def __str__(self):
+        return f"{self.colo1} and {self.color2}"
 class Sportbike(models.Model):
         make =  models.CharField(max_length=100, null=True)
         name = models.CharField(max_length=100, null=True)
         displacement = models.CharField(max_length=30, default='600cc')
         skill_lvl = models.CharField(max_length=50, default='advanced' )
+        colors = models.ManyToManyField(Colors)
 
         def __str__(self):
             return f"{self.make} {self.name}"
 
         def get_absolute_url(self):
             return reverse('detail', kwargs={'sportbike_id': self.id})
+
 
 class Trim(models.Model):
     name = models.CharField(
@@ -32,6 +40,8 @@ class Trim(models.Model):
 
     def __str__(self):
         return f"{self.get_name_display()} for ${self.price_inc}"
+
+
 
 class Photo(models.Model):
     url = models.CharField(max_length=200)

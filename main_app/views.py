@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView
 import uuid
 import boto3
-from .models import Sportbike, Photo
+from .models import Sportbike, Colors, Photo
 from .forms import TrimForm
 import os
 
@@ -21,6 +22,27 @@ class SportbikeUpdate(UpdateView):
 class SportbikeDelete(DeleteView):
     model = Sportbike
     success_url = '/sportbikes/'
+
+
+class ColorsList(ListView):
+  model = Colors
+
+class ColorsDetail(DetailView):
+  model = Colors
+
+class ColorsCreate(CreateView):
+  model = Colors
+  fields = '__all__'
+
+class ColorsUpdate(UpdateView):
+  model = Colors
+  fields = ['name', 'colors']
+
+class ColorsDelete(DeleteView):
+  model = Colors
+  success_url = '/colors/'
+
+
 
 
 def home(request):
@@ -73,3 +95,5 @@ def add_photo(request, sportbike_id):
             print('An error occurred uploading file to S3')
             print(e)
     return redirect('detail', sportbike_id=sportbike_id)
+
+
