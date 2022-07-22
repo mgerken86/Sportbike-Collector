@@ -17,4 +17,6 @@ urlpatterns = [
     path('colors/create/', views.ColorsCreate.as_view(), name='colors_create'),
     path('colors/<int:pk>/update/', views.ColorsUpdate.as_view(), name='colors_update'),
     path('colors/<int:pk>/delete/', views.ColorsDelete.as_view(), name='colors_delete'),
+    path('colors/<int:pk>/delete/', views.ColorsDelete.as_view(), name='colors_delete'),
+    path('accounts/signup/', views.signup, name='signup')
 ]

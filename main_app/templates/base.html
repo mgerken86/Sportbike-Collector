@@ -22,10 +22,16 @@
                 </ul>
                 <ul class="right">
                     <li><a href="{% url 'about' %}">About</a></li>
+                    {% if user.is_authenticated %}
                     <li><a href="{% url 'sportbikes_create' %}">Add a Sportbike</a></li>
                     <li><a href="{% url 'index' %}">View All My Sportbikes</a></li>
                     <li><a href="{% url 'colors_create' %}">Add a Color Scheme</a></li>
                     <li><a href="{% url 'colors_index' %}">View All Color Schemes</a></li>
+                    <li><a href="{% url 'logout' %}">Log Out</a></li>
+                    {% else %}
+                    <li><a href="{% url 'login' %}">Log In</a></li>
+                    <li><a href="{% url 'signup' %}">Sign Up</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </nav>

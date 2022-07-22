@@ -1,5 +1,7 @@
 from django.db import models
 from django.urls import reverse
+from datetime import date
+from django.contrib.auth.models import User
 
 NAMES = (
     ('P', 'Premium'),
@@ -21,6 +23,7 @@ class Sportbike(models.Model):
         displacement = models.CharField(max_length=30, default='600cc')
         skill_lvl = models.CharField(max_length=50, default='advanced' )
         colors = models.ManyToManyField(Colors)
+        user = models.ForeignKey(User, on_delete=models.CASCADE)
 
         def __str__(self):
             return f"{self.make} {self.name}"
