@@ -11,6 +11,7 @@ urlpatterns = [
     path('sportbikes/<int:pk>/delete/', views.SportbikeDelete.as_view(), name='sportbikes_delete'),
     path('sportbikes/<int:sportbike_id>/add_photo/', views.add_photo, name='add_photo'),
     path('sportbikes/<int:sportbike_id>/add_trim/', views.add_trim, name='add_trim'),
+    path('sportbikes/<int:sportbike_id>/assoc_colors/<int:colors_id>/', views.assoc_colors, name='assoc_colors'),
     path('colors/', views.ColorsList.as_view(), name='colors_index'),
     path('colors/<int:pk>/', views.ColorsDetail.as_view(), name='colors_detail'),
     path('colors/create/', views.ColorsCreate.as_view(), name='colors_create'),

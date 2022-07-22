@@ -10,7 +10,7 @@ import os
 
 class SportbikeCreate(CreateView):
     model = Sportbike
-    fields = '__all__'
+    fields = ['make', 'name', 'displacement', 'skill_lvl']
     success_url = '/sportbikes/'
 
 
@@ -60,12 +60,12 @@ def sportbikes_index(request):
 
 
 def sportbikes_detail(request, sportbike_id):
-    bike = Sportbike.objects.get(id=sportbike_id)
+    sportbike = Sportbike.objects.get(id=sportbike_id)
     trim_form = TrimForm()
     id_list = sportbike.colors.all().values_list('id')
-    colors_bike_doesnt_have = Colors.objects.exclude(id_in=id_list)
+    colors_bike_doesnt_have = Colors.objects.exclude(id__in=id_list)
     return render(request, 'sportbikes/detail.html', {
-        'sportbike': bike, 'trim_form': trim_form,
+        'sportbike': sportbike, 'trim_form': trim_form,
         'colors': colors_bike_doesnt_have
     })
 
@@ -76,6 +76,10 @@ def add_trim(request, sportbike_id):
     print(new_trim)
     new_trim.sportbike_id = sportbike_id
     new_trim.save()
+  return redirect('detail', sportbike_id=sportbike_id)
+
+def assoc_colors(request, sportbike_id, colors_id):
+  Sportbike.objects.get(id=sportbike_id).colors.add(colors_id)
   return redirect('detail', sportbike_id=sportbike_id)
 
 
