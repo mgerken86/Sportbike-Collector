@@ -32,11 +32,12 @@ class ColorsDetail(DetailView):
 
 class ColorsCreate(CreateView):
   model = Colors
-  fields = '__all__'
+  fields = ["color1", "color2"]
+  success_url = '/colors/'
 
 class ColorsUpdate(UpdateView):
   model = Colors
-  fields = ['name', 'colors']
+  fields = ["color1", "color2"]
 
 class ColorsDelete(DeleteView):
   model = Colors
@@ -61,8 +62,11 @@ def sportbikes_index(request):
 def sportbikes_detail(request, sportbike_id):
     bike = Sportbike.objects.get(id=sportbike_id)
     trim_form = TrimForm()
+    id_list = sportbike.colors.all().values_list('id')
+    colors_bike_doesnt_have = Colors.objects.exclude(id_in=id_list)
     return render(request, 'sportbikes/detail.html', {
-        'sportbike': bike, 'trim_form': trim_form
+        'sportbike': bike, 'trim_form': trim_form,
+        'colors': colors_bike_doesnt_have
     })
 
 def add_trim(request, sportbike_id):

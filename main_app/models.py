@@ -9,11 +9,12 @@ NAMES = (
 
 # Create your models here.
 class Colors(models.Model):
-    color1 =[ models.CharField(max_length=50)]
-    color2 =[ models.CharField(max_length=50)]
+    color1 = models.CharField(max_length=50, default='black') 
+    color2 = models.CharField(max_length=50, default='black') 
 
-    def __str__(self):
-        return f"{self.colo1} and {self.color2}"
+    # def __str__(self):
+    #     return f"{self.color1} and {self.color2}"
+
 class Sportbike(models.Model):
         make =  models.CharField(max_length=100, null=True)
         name = models.CharField(max_length=100, null=True)
